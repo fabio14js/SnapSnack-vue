@@ -5,10 +5,8 @@ import { router } from "./router";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faUserSecret, faChevronDown, faUtensils, faCircleArrowLeft, faCircleArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { faAddressCard, faUser } from '@fortawesome/free-regular-svg-icons'
+import { faCircleArrowLeft, faCircleArrowRight } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faUserSecret, faChevronDown, faAddressCard, faUser, faUtensils, faCircleArrowLeft, faCircleArrowRight);
+library.add(faCircleArrowLeft, faCircleArrowRight);
 
 createApp(App).use(router).component("font-awesome-icon", FontAwesomeIcon).mount("#app");
-
