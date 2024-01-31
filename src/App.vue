@@ -1,9 +1,12 @@
 <script setup>
-import NavBar from "./components/NavBar.vue";
+import NavBar from "./components/index/NavBar.vue";
 </script>
 
 <template>
-  <NavBar />
+  <header class="px-10 bg-black">
+    <NavBar />
+  </header>
+
   <main>
     <router-view></router-view>
   </main>
