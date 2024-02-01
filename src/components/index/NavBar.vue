@@ -5,7 +5,7 @@ import Button from '../utility/button.vue';
 
 <template>
   <div class="flex justify-between items-center">
-    <img class="w-[310px]" draggable="false" src="../../../public/snaps-text-removebg-preview.png" alt="Logo Sito">
+    <img class="w-[310px]" draggable="false" src="/snapsnack.png" alt="Logo Sito">
     <ul class="flex gap-4 items-center">
       <li class="flex justify-center items-center gap-1">        
         <Button :icon="'fa-solid fa-chevron-down'" :text="'Chi Siamo'" :link="'/'" />
