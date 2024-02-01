@@ -1,13 +1,19 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+
+import VLazyImage from "v-lazy-image";
+
+const input = ref("");
+</script>
 
 <template>
   <div class="head-hero py-10 relative" style="box-shadow: 0 6px 5px -2px rgba(128, 128, 128, 0.438)">
-    <img draggable="false" class="hero-img hero-img-1 max-w-full hidden md:inline-block" src="/coffee.png" alt="coffee" />
-    <img draggable="false" class="hero-img hero-img-2 max-w-full hidden lg:inline-block" src="/donut.png" alt="donut" />
-    <img draggable="false" class="hero-img hero-img-3 max-w-full" src="/gamberi-tempura.png" alt="tempura" />
-    <img draggable="false" class="hero-img hero-img-4 max-w-full" src="/icecream.png" alt="icecream" />
-    <img draggable="false" class="hero-img hero-img-5 max-w-full" src="/meat.png" alt="meat" />
-    <img draggable="false" class="hero-img hero-img-6 max-w-full hidden lg:inline-block" src="/nigiri.png" alt="nigiri" />
+    <VLazyImage draggable="false" class="hero-img hero-img-1 max-w-full hidden md:inline-block" src="/coffee.png" alt="coffee" />
+    <VLazyImage draggable="false" class="hero-img hero-img-2 max-w-full hidden lg:inline-block" src="/donut.png" alt="donut" />
+    <VLazyImage draggable="false" class="hero-img hero-img-3 max-w-full" src="/gamberi-tempura.png" alt="tempura" />
+    <VLazyImage draggable="false" class="hero-img hero-img-4 max-w-full" src="/icecream.png" alt="icecream" />
+    <VLazyImage draggable="false" class="hero-img hero-img-5 max-w-full" src="/meat.png" alt="meat" />
+    <VLazyImage draggable="false" class="hero-img hero-img-6 max-w-full hidden lg:inline-block" src="/nigiri.png" alt="nigiri" />
 
     <section class="container mx-auto transition-all duration-200 px-6">
       <div class="flex items-center justify-center flex-col gap-10">
@@ -21,6 +27,7 @@
           <input
             type="text"
             id="input-group-1"
+            v-model="input"
             class="z-10 w-[370px] border-4 border-[#FFA500] text-base rounded-lg hover:border-[#FFD700] focus:outline-none block ps-10 p-2.5"
             placeholder="Inserisci il nome del tuo ristorante preferito"
           />
@@ -31,6 +38,14 @@
 </template>
 
 <style scoped>
+.v-lazy-image {
+  filter: blur(5px);
+  transition: filter 0.8s;
+}
+.v-lazy-image-loaded {
+  filter: blur(0);
+}
+
 .head-hero {
   background-color: wheat;
 }

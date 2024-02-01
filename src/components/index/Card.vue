@@ -1,6 +1,4 @@
 <script setup>
-
-
 defineProps({
   title: String,
   image: String,
@@ -19,8 +17,6 @@ defineProps({
         class="object-cover max-w-[100%] smooth-transition transform scale-100 hover:scale-105"
         :src="image"
         alt="Immagine"
-        
-
       />
     </figure>
     <h3 class="text-center flex items-center justify-center text-base bg-white rounded-b-lg h-[30%] w-full">{{ title }}</h3>
