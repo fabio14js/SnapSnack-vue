@@ -81,33 +81,32 @@ function moveTo(direction) {
 </script>
 
 <template>
-  <section class="container my-0 mx-auto transition-all duration-200 px-6 relative">
+  <section class="container mt-14 my-0 mx-auto transition-all duration-200 px-6 relative">
     <div class="flex flex-col gap-2">
       <h2 class="text-3xl font-bold">Le cucine più amate</h2>
       <span>Trova le cucine più amate dai ristoranti nella tua zona e ordina online a domicilio. </span>
       <div
         ref="slider"
         @mouseenter=""
-        class="lg:overflow-x-auto lg:whitespace-nowrap grid grid-cols-2 md:grid-cols-4 mt-4 lg:flex gap-8 md:gap-6 lg:gap-10 lg:items-center no-overflow px-2 py-4"
+        class="lg:overflow-x-auto lg:whitespace-nowrap grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mt-4 lg:flex gap-8 md:gap-6 lg:gap-10 lg:items-center no-overflow px-2 py-4"
       >
-        <div
-          v-show="sliderPosition === 'end'"
-          class="absolute hidden lg:inline-block p-4 top-[62%] left-[-10px] z-[999] transform -translate-x-1/2 -translate-y-1/2"
-        >
+        <Card @mousemove.prevent="mousemove" id="card" v-for="(i, index) in products.length" :title="products[index].title" :image="products[index].image" />
+      </div>
+      <div class="flex items-center justify-around md:hidden lg:flex 2xl:hidden">
+        <div class="p-4">
           <font-awesome-icon
             @click.prevent="moveTo('left')"
-            class="text-[#ffd900e1] hover:text-[#FFD700] cursor-pointer hover:scale-110 hover:drop-shadow-lg transition-all duration-300 drop-shadow text-4xl"
+            class="text-[#ffd900e1] transition-all duration-300 drop-shadow text-4xl"
+            :class="sliderPosition === 'end' ? 'hover:text-[#FFD700] cursor-pointer hover:scale-110 hover:drop-shadow-lg' : 'cursor-not-allowed opacity-60'"
             :icon="['fas', 'circle-arrow-left']"
           />
         </div>
-        <Card @mousemove.prevent="mousemove" id="card" v-for="(i, index) in products.length" :title="products[index].title" :image="products[index].image" />
-        <div
-          v-show="sliderPosition === 'start'"
-          class="absolute hidden lg:inline-block p-4 top-[62%] right-[-80px] z-[999] transform -translate-x-1/2 -translate-y-1/2"
-        >
+
+        <div class="p-4">
           <font-awesome-icon
             @click.prevent="moveTo('right')"
-            class="text-[#ffd900e1] hover:text-[#FFD700] cursor-pointer hover:scale-110 hover:drop-shadow-lg transition-all duration-300 drop-shadow text-4xl"
+            class="text-[#ffd900e1] transition-all duration-300 drop-shadow text-4xl"
+            :class="sliderPosition === 'start' ? 'hover:text-[#FFD700] cursor-pointer hover:scale-110 hover:drop-shadow-lg' : 'cursor-not-allowed opacity-60'"
             :icon="['fas', 'circle-arrow-right']"
           />
         </div>
@@ -118,6 +117,6 @@ function moveTo(direction) {
 
 <style scoped>
 .no-overflow {
-  overflow-x: hidden;
+  overflow: hidden;
 }
 </style>
