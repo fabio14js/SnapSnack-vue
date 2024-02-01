@@ -56,7 +56,7 @@ function mousemove(e) {
   let img_x = mouseX - coords(card_image).x;
   let img_y = mouseY - coords(card_image).y;
   requestAnimationFrame(() => {
-    card_image.style.transform = `translateY(-${img_y / 30}px) translateX(-${img_x / 30}px) translateZ(100px)`;
+    card_image.style.transform = `translateY(-${img_y / 25 - 2}px) translateX(-${img_x / 25}px) translateZ(100px)`;
   });
 }
 
@@ -83,16 +83,16 @@ function moveTo(direction) {
 <template>
   <section class="container mt-14 my-0 mx-auto transition-all duration-200 px-6 relative">
     <div class="flex flex-col gap-2">
-      <h2 class="text-3xl font-bold">Le cucine più amate</h2>
-      <span>Trova le cucine più amate dai ristoranti nella tua zona e ordina online a domicilio. </span>
+      <h2 class="text-3xl md:text-4xl font-bold">Le cucine più amate</h2>
+      <span class="text-lg md:text-xl">Trova le cucine più amate dai ristoranti nella tua zona e ordina online a domicilio. </span>
       <div
         ref="slider"
         @mouseenter=""
-        class="lg:overflow-x-auto lg:whitespace-nowrap grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mt-4 lg:flex gap-8 md:gap-6 lg:gap-10 lg:items-center no-overflow px-2 py-4"
+        class="lg:overflow-x-auto lg:whitespace-nowrap grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mt-4 lg:flex gap-8 md:gap-6 lg:gap-10 lg:items-center no-overflow px-10 md:px-2 py-4"
       >
         <Card @mousemove.prevent="mousemove" id="card" v-for="(i, index) in products.length" :title="products[index].title" :image="products[index].image" />
       </div>
-      <div class="flex items-center justify-around md:hidden lg:flex 2xl:hidden">
+      <div class="items-center justify-around hidden lg:flex 2xl:hidden">
         <div class="p-4">
           <font-awesome-icon
             @click.prevent="moveTo('left')"
@@ -101,7 +101,20 @@ function moveTo(direction) {
             :icon="['fas', 'circle-arrow-left']"
           />
         </div>
-
+        <div class="flex items-center gap-2">
+          <font-awesome-icon
+            :class="sliderPosition === 'start' ? ' scale-150 text-gray-500' : 'text-gray-400'"
+            @click.prevent="moveTo('left')"
+            class="text-[10px] cursor-pointer scale-105 drop-shadow-sm transition-all duration-200"
+            :icon="['fas', 'circle-dot']"
+          />
+          <font-awesome-icon
+            :class="sliderPosition === 'end' ? ' scale-150 text-gray-500' : 'text-gray-400'"
+            @click.prevent="moveTo('right')"
+            class="text-[10px] cursor-pointer text-gray-400 scale-105 drop-shadow-sm duration-200"
+            :icon="['fas', 'circle-dot']"
+          />
+        </div>
         <div class="p-4">
           <font-awesome-icon
             @click.prevent="moveTo('right')"
