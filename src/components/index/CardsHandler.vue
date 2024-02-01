@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import Card from "./Card.vue";
 import { useScroll } from "@vueuse/core";
 
+
 const products = ref([
   {
     title: "Hamburger",

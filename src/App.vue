@@ -3,7 +3,7 @@ import NavBar from "./components/index/NavBar.vue";
 </script>
 
 <template>
-  <header class="px-4 md:px-10 py-5 bg-[wheat] pt-6 sticky top-0 left-0 z-[999] opacity-95">
+  <header class="px-4 md:px-10 py-5 bg-[wheat] pt-6 sticky top-0 left-0 z-[999] opacity-95 hover:opacity-100 transition-all duration-250">
     <NavBar />
   </header>
 
