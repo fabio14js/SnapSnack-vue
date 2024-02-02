@@ -7,7 +7,7 @@ const input = ref("");
 </script>
 
 <template>
-  <div class="head-hero py-10 relative" style="box-shadow: 0 6px 5px -2px rgba(128, 128, 128, 0.438)">
+  <div class="head-hero py-24 relative" style="box-shadow: 0 6px 5px -2px rgba(128, 128, 128, 0.438)">
     <VLazyImage draggable="false" class="hero-img hero-img-1 max-w-full hidden md:inline-block" src="/coffee.png" alt="coffee" />
     <VLazyImage draggable="false" class="hero-img hero-img-2 max-w-full hidden lg:inline-block" src="/donut.png" alt="donut" />
     <VLazyImage draggable="false" class="hero-img hero-img-3 max-w-full" src="/gamberi-tempura.png" alt="tempura" />
