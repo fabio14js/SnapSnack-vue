@@ -35,10 +35,26 @@ const roundClass = computed(() => {
       </button>
       <font-awesome-icon class="text-[#FFA500] text-lg" icon="fa-solid fa-chevron-down" />
     </div>
-    <ul class="flex flex-col gap-2 mt-6" v-show="isOpen">
-      <li v-for="item in list">
-        <a :href="item.link">{{ item.name }}</a>
-      </li>
-    </ul>
+    <transition name="slide">
+      <ul class="flex flex-col list gap-2 mt-6" v-show="isOpen">
+        <li v-for="item in list">
+          <a :href="item.link">{{ item.name }}</a>
+        </li>
+      </ul>
+    </transition>
   </div>
 </template>
+
+<style scoped>
+.list {
+  list-style-type: none;
+  transform-origin: top;
+  transition: transform 0.4s ease-in-out;
+  overflow: hidden;
+}
+
+.slide-enter,
+.slide-leave-to {
+  transform: scaleY(0);
+}
+</style>
