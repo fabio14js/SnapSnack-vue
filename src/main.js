@@ -9,9 +9,20 @@ import { faUserSecret, faChevronDown, faUtensils, faCircleArrowLeft, faCircleArr
 import { faAddressCard, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faFacebookF, faInstagram, faTiktok, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 
-library.add(faUserSecret, faChevronDown, faAddressCard, faUser, faUtensils, faCircleArrowLeft, faCircleArrowRight, faCircleDot, faFacebookF, faXTwitter, faInstagram, faTiktok, faArrowRight);
-
+library.add(
+  faUserSecret,
+  faChevronDown,
+  faAddressCard,
+  faUser,
+  faUtensils,
+  faCircleArrowLeft,
+  faCircleArrowRight,
+  faCircleDot,
+  faFacebookF,
+  faXTwitter,
+  faInstagram,
+  faTiktok,
+  faArrowRight
+);
 
 createApp(App).use(router).component("font-awesome-icon", FontAwesomeIcon).mount("#app");
-
-//
