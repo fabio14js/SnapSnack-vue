@@ -1,4 +1,5 @@
 <script setup>
+import FooterDropDown from './FooterDropDown.vue';
 
 const restaurantChains = [
     {
@@ -46,18 +47,47 @@ const restaurantChains = [
 ];
 
 const legalNotices = [
-"Termini & Condizioni",
-"Informativa sulla privacy",
-"Cookies",
-"Richieste da parte delle Autorità Pubbliche"
+    {
+    name: "Termini & Condizioni",
+    link: "#"
+    },
+    {
+    name: "Informativa sulla privacy",
+    link: "#"
+    },
+    {
+    name: "Cookies",
+    link: "#"
+    },
+    {
+    name: "Richieste da parte delle Autorità Pubbliche",
+    link: "#"
+    },   
+
 ]
 
 const companyInformation = [
-"Domande frequenti",
-"Chi Siamo",
-"Lavora con noi",
-"Contatti",
-"SnapSnack Pro"
+{
+    name: "Domande frequenti",
+    link: "#"
+},
+{
+    name: "Chi Siamo",
+    link: "#"
+},
+{
+    name: "Lavora con noi",
+    link: "#"
+},
+{
+    name: "Contatti",
+    link: "#"
+},
+{
+    name: "SnapSnack Pro",
+    link: "#"
+},
+
 ]
 
 
@@ -66,7 +96,7 @@ const companyInformation = [
 
 <template>
     <div class="transition-all duration-200 container my-0 mx-auto">
-        <div class="w-full flex gap-[200px] items-center">
+        <div class="w-full flex gap-[200px] items-center xl:flex-row flex-col mb-8">
            <div class="flex flex-col gap-6">
                 <img class="w-[500px] drop-shadow-md" src="\public\snaps-logo.png" alt="logo"> 
                 <ul class="flex items-center justify-center gap-6 text-[#FFA500] text-3xl">              
@@ -79,7 +109,7 @@ const companyInformation = [
                 
     
             </div>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="xl:grid grid-cols-3 gap-4 hidden ">
                 <ul class="flex flex-col gap-2 bg-white rounded-md p-8 drop-shadow-xl">
                     <li class="mb-2">
                         <h2 class="text-[#FFA500] text-2xl font-bold">Catene</h2>
@@ -90,16 +120,24 @@ const companyInformation = [
                     <li class="mb-2">
                         <h2 class="text-[#FFA500] text-2xl font-bold">Note legali</h2>
                     </li>
-                    <li v-for="notice in legalNotices"><a href="">{{ notice }}</a></li>
+                    <li v-for="notice in legalNotices"><a href="">{{ notice.name }}</a></li>
                 </ul>
                 <ul class="flex flex-col gap-2 bg-white rounded-md p-8 drop-shadow-xl">
                     <li class="mb-2">
                         <h2 class="text-[#FFA500] text-2xl font-bold">About Us</h2>
                     </li>
-                    <li v-for="information in companyInformation"><a href="">{{ information }}</a></li>
+                    <li v-for="information in companyInformation"><a href="">{{ information.name }}</a></li>
                 </ul>            
-            </div>                
-          
+            </div>
+            
+            
+            
+        </div>
+        <div class="flex flex-col xl:hidden">
+            <FooterDropDown :position="1" :title="'Catene'" :list="restaurantChains"/>
+            <FooterDropDown :position="2" :title="'Note legali'" :list="legalNotices"/>
+            <FooterDropDown :position="3" :title="'About Us'" :list="companyInformation"/>           
+
         </div>
 
     </div>

@@ -24,7 +24,7 @@ onMounted(() => {
   <main v-show="!loading">
     <router-view></router-view>
   </main>
-  <footer class="py-5 pt-6 bg-[#f5deb3]" style="box-shadow: 0px -6px 6px -2px rgba(128, 128, 128, 0.438);">
+  <footer class="px-2 py-5 pt-6 bg-[#f5deb3]" style="box-shadow: 0px -6px 6px -2px rgba(128, 128, 128, 0.438);">
     <ContactFooter />
   </footer>
 </template>
