@@ -3,7 +3,6 @@ import { ref, onMounted } from "vue";
 import Card from "./Card.vue";
 import { useScroll } from "@vueuse/core";
 
-
 const products = ref([
   {
     title: "Hamburger",
@@ -82,7 +81,7 @@ function moveTo(direction) {
 </script>
 
 <template>
-  <section class="container mt-14 my-0 mx-auto transition-all duration-200 px-6 relative">
+  <section class="container mt-20 my-0 mx-auto transition-all duration-200 px-6 relative">
     <div class="flex flex-col gap-2">
       <h2 class="text-3xl md:text-4xl font-bold">Le cucine più amate</h2>
       <span class="text-lg md:text-xl">Trova le cucine più amate dai ristoranti nella tua zona e ordina online a domicilio. </span>

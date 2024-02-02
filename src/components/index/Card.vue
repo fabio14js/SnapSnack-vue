@@ -8,7 +8,7 @@ defineProps({
 <template>
   <a
     href="/"
-    class="flex flex-col justify-center items-center cursor-pointer hover:scale-105 transition-all duration-200 drop-shadow-lg hover:drop-shadow-md lg:flex-shrink-0 gap-4 h-[180px] bg-[#ff6347ea] rounded-lg overflow-hidden"
+    class="flex flex-col justify-center items-center cursor-pointer hover:scale-105 transition-all duration-200 drop-shadow-lg hover:drop-shadow-md lg:flex-shrink-0 gap-4 h-[180px] bg-[#f56143] rounded-lg overflow-hidden"
   >
     <figure class="h-[70%] px-1 w-[150px]">
       <img
