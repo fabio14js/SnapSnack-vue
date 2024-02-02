@@ -2,6 +2,7 @@
 import { onMounted, ref } from "vue";
 import NavBar from "./components/index/NavBar.vue";
 import Loader from "./components/utility/Loader.vue";
+import ContactFooter from "./components/index/ContactFooter.vue";
 
 const loading = ref(true);
 
@@ -23,6 +24,9 @@ onMounted(() => {
   <main v-show="!loading">
     <router-view></router-view>
   </main>
+  <footer>
+    <ContactFooter />
+  </footer>
 </template>
 
 <style scoped>
