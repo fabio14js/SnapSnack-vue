@@ -1,9 +1,11 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { store } from "../store";
 import axios from "axios";
 import Button from "../components/index/Button.vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const { slug } = defineProps(["slug"]);
 const restaurants = ref([]);
 const categories = ref([]);
@@ -12,6 +14,19 @@ const categoriesCount = ref([]);
 const filter = ref("");
 
 const input = ref(store.searchQuery);
+
+const slugify = (str) =>
+	str
+		.toLowerCase()
+		.trim()
+		.replace(/[^\w\s-]/g, "")
+		.replace(/[\s_-]+/g, "-")
+		.replace(/^-+|-+$/g, "");
+
+watch(input, (newInput) => {
+	const inputSlug = slugify(newInput);
+	router.replace(`/search/${inputSlug}`);
+});
 
 axios.get(`${store.apiUrl}/restaurants`).then((resp) => {
 	restaurants.value = resp.data.restaurants;
