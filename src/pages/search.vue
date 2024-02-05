@@ -64,6 +64,7 @@ const handleClick = (category) => {
 
 const resetHandler = () => {
 	filter.value = "";
+	input.value = "";
 };
 </script>
 
@@ -147,13 +148,13 @@ const resetHandler = () => {
 										<font-awesome-icon
 											class="text-[12px] text-[#fd6146]"
 											:icon="['fas', 'location-dot']" />
-										<span class="whitespace-nowrap">{{ restaurant.address }}</span>
+										<span class="sm:whitespace-nowrap whitespace-normal">{{ restaurant.address }}</span>
 									</div>
 									<div class="flex gap-3 items-center">
 										<font-awesome-icon
 											class="text-[12px] text-[#fd6146]"
 											icon="fa-solid fa-phone" />
-										<span class="whitespace-nowrap">{{ restaurant.phone_number }}</span>
+										<span class="sm:whitespace-nowrap whitespace-normal">{{ restaurant.phone_number }}</span>
 									</div>
 								</div>
 							</div>
