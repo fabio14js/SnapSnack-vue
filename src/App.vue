@@ -7,36 +7,41 @@ import ContactFooter from "./components/index/ContactFooter.vue";
 const loading = ref(true);
 
 onMounted(() => {
-  setTimeout(() => {
-    loading.value = false;
-  }, 2000);
+	setTimeout(() => {
+		loading.value = false;
+	}, 2000);
 });
 </script>
 
 <template>
-  <header v-show="!loading" class="px-4 md:px-10 py-5 bg-[wheat] pt-6 transition-all duration-200">
-    <NavBar />
-  </header>
+	<header
+		v-show="!loading"
+		class="px-4 md:px-10 py-5 bg-[wheat] pt-6 transition-all duration-200">
+		<NavBar />
+	</header>
 
-  <Transition>
-    <Loader v-if="loading" />
-  </Transition>
-  <main v-show="!loading">
-    <router-view></router-view>
-  </main>
-  <footer v-show="!loading" class="px-2 py-5 pt-6 bg-[#f5deb3]" style="box-shadow: 0px -6px 6px -2px rgba(128, 128, 128, 0.438)">
-    <ContactFooter />
-  </footer>
+	<Transition>
+		<Loader v-if="loading" />
+	</Transition>
+	<main v-show="!loading">
+		<router-view></router-view>
+	</main>
+	<footer
+		v-show="!loading"
+		class="px-2 py-5 pt-6 bg-[#f5deb3]"
+		style="box-shadow: 0px -6px 6px -2px rgba(128, 128, 128, 0.438)">
+		<ContactFooter />
+	</footer>
 </template>
 
 <style scoped>
 .v-enter-active,
 .v-leave-active {
-  transition: opacity 1s ease;
+	transition: opacity 1s ease;
 }
 
 .v-enter-from,
 .v-leave-to {
-  opacity: 0;
+	opacity: 0;
 }
 </style>
