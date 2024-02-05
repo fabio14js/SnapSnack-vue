@@ -28,7 +28,7 @@ const changeShowingStatus = (type) => {
 
 <template>
 <div class="flex flex-col justify-center items-center py-4">
-    <div :style="{ backgroundImage: `url(${restaurant.photo})` }" class="w-[1200px] rounded shadow-lg flex justify-center items-center flex-col border p-6 mb-10">        
+    <div :style="{ backgroundImage: `url(${restaurant.photo})`} " class="bg-cover lg:w-[1200px] md:w-[800px] sm:w-[400px] rounded shadow-lg flex justify-center items-center flex-col border p-6 mb-10">        
         <div class="px-6 py-4 text-center bg-[#F5DEB3]/[.73] rounded-md shadow-lg">
             <h1 class="font-bold text-6xl mb-2">{{ restaurant.name }}</h1>
             <p class="text-black text-xl">
@@ -46,12 +46,12 @@ const changeShowingStatus = (type) => {
         </div>
     </div>
     
-    <div class="w-[1200px] border p-4 rounded-full flex justify-around gap-10 text-xl mb-10 shadow-md">
+    <div class="lg:w-[1200px] md:w-[800px] sm:w-[400px] border p-4 rounded-full flex justify-around gap-10 text-xl mb-10 shadow-md">
         <button @click.prevent="changeShowingStatus ('menu')" class="line-orange menu cursor-pointer p-4 relative">Menu</button>
         <button @click.prevent="changeShowingStatus ('info')" class="line-orange info cursor-pointer p-4 relative">Info</button>
     </div>
 
-    <div v-show="isShowingMenu" v-for="dish in dishes" class="flex flex-col justify-center w-[1200px] mb-8">
+    <div v-show="isShowingMenu" v-for="dish in dishes" class="flex flex-col justify-center lg:w-[1200px] md:w-[800px] sm:w-[400px] w-[300px] mb-8">
         <h2 class="font-bold text-3xl mb-2">Tipo di piatto</h2>
         <div class="border rounded-md p-6 hover:shadow-lg cursor-pointer transition-all duration-300">
             <img src="" alt="">
