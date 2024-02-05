@@ -38,7 +38,7 @@ const roundClass = computed(() => {
     <transition name="slide">
       <ul class="flex flex-col list gap-2 mt-6" v-show="isOpen">
         <li v-for="item in list">
-          <a :href="item.link">{{ item.name }}</a>
+          <a class="hover:text-[#FFA500] transition-colors duration-200" :href="item.link">{{ item.name }}</a>
         </li>
       </ul>
     </transition>

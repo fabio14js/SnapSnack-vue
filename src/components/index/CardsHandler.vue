@@ -56,7 +56,7 @@ function mousemove(e) {
   let img_x = mouseX - coords(card_image).x;
   let img_y = mouseY - coords(card_image).y;
   requestAnimationFrame(() => {
-    card_image.style.transform = `translateY(-${img_y / 25 - 2}px) translateX(-${img_x / 25}px) translateZ(100px)`;
+    card_image.style.transform = `translateY(-${img_y / 25 - 2}px) translateX(-${img_x / 20}px) translateZ(100px)`;
   });
 }
 
