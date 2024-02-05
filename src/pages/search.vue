@@ -2,7 +2,6 @@
 import { ref, computed, watch } from "vue";
 import { store } from "../store";
 import axios from "axios";
-axios.defaults.httpsAgent = new https.Agent({ rejectUnauthorized: false });
 import Button from "../components/index/Button.vue";
 import { useRouter } from "vue-router";
 
