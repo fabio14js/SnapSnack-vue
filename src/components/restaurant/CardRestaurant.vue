@@ -56,7 +56,7 @@ const changeShowingStatus = (type) => {
 </script>
 
 <template>
-    
+
 <div class="flex flex-col justify-center items-center py-4">
     <div :style="{ backgroundImage: `url(${restaurant.photo})`} " class="bg-cover lg:w-[1200px] md:w-[800px] sm:w-[400px] rounded shadow-lg flex justify-center items-center flex-col border p-6 mb-10">        
         <div class="px-6 py-4 text-center bg-[#F5DEB3]/[.73] rounded-md shadow-lg">
@@ -80,8 +80,8 @@ const changeShowingStatus = (type) => {
         <button @click.prevent="changeShowingStatus ('menu')" class="line-orange menu cursor-pointer p-4 relative">Menu</button>
         <button @click.prevent="changeShowingStatus ('info')" class="line-orange info cursor-pointer p-4 relative">Info</button>
     </div>
-
-    <div class="relative flex-grow mb-10">
+    
+    <div v-show="isShowingMenu" class="relative flex-grow mb-10">
         <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 text-gray-400">
             <font-awesome-icon icon="fa-solid fa-utensils" />
         </div>
