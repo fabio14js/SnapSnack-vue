@@ -153,7 +153,7 @@ function addToCart(selectedDish) {
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: url(C:\Dev\git-hub\final-project\SnapSnack-vue\public\foods-pattern-bw.jpg);
+    background-image: url(/foods-pattern-bw.jpg);
     background-size: 250px;
     opacity: 0.1; 
     z-index: -1;
