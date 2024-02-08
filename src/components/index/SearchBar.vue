@@ -17,9 +17,8 @@ const searchRestaurant = () => {
 	store.searchQuery = input.value;
 	router.push({
 		name: "search",
-		params: { slug: slugify(input.value) },
+		params: { slug: store.searchQuery ? slugify(input.value) : "all" },
 	});
-	console.log("clicked");
 };
 
 const input = ref(store.searchQuery);

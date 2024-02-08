@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onUnmounted } from "vue";
 import { store } from "../store";
 import axios from "axios";
 import Button from "../components/index/Button.vue";
@@ -15,6 +15,19 @@ const filters = ref([]);
 const filteredRestaurants = ref([]);
 
 const input = ref(store.searchQuery);
+
+if (input.value) {
+	sendPostData();
+}
+
+if (store.selectedCategory) {
+	filters.value.push(store.selectedCategory);
+	sendPostData();
+}
+
+onUnmounted(() => {
+	resetHandler();
+});
 
 const slugify = (str) =>
 	str
@@ -47,7 +60,7 @@ function categoryCounter(category) {
 }
 
 const restaurantsData = computed(() => {
-	if (filters.value.length > 0) {
+	if (filters.value.length > 0 || input.value) {
 		return filteredRestaurants.value;
 	} else {
 		return restaurants.value;
@@ -58,6 +71,7 @@ async function sendPostData() {
 	try {
 		const response = await axios.post(`${store.apiUrl}/restaurants/filter`, {
 			categories: filters.value,
+			query: input.value,
 		});
 
 		filteredRestaurants.value = response.data.restaurants;
@@ -74,15 +88,17 @@ function handleClick(category) {
 		filters.value.forEach((filter, i) => {
 			if (filter === category) {
 				filters.value.splice(i, 1);
-				if (filters.value.length > 0) {
-					sendPostData();
-				}
 			}
 		});
+		if (filters.value.length > 0) {
+			sendPostData();
+		}
 	}
 }
+
 function resetHandler() {
 	filters.value = [];
+	store.selectedCategory = "";
 	input.value = "";
 }
 </script>
@@ -121,6 +137,7 @@ function resetHandler() {
 						<input
 							type="text"
 							id="input-group-1"
+							@input.prevent="sendPostData"
 							v-model="input"
 							class="z-10 w-full border-4 border-[#FFA500] text-base rounded-lg hover:border-[#FFD700] focus:outline-none block ps-10 p-2.5"
 							placeholder="Cerca il tuo ristorante preferito" />
