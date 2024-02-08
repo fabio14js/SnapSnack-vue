@@ -54,36 +54,33 @@ const restaurantsData = computed(() => {
 	}
 });
 
-async function sendPostData() {
-	try {
-		const response = await axios.post(`${store.apiUrl}/restaurants/filter`, {
-			categories: filters.value,
-		});
 
-		filteredRestaurants.value = response.data.restaurants;
-	} catch (error) {
-		console.error(error);
-	}
+async function sendPostData() {
+  try {
+    const response = await axios.post(`${store.apiUrl}/restaurants/filter`, {
+      categories: filters.value,
+    });
+
+    filteredRestaurants.value = response.data.restaurants;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function handleClick(category) {
-	if (!filters.value.includes(category)) {
-		filters.value.push(category);
-		sendPostData();
-	} else {
-		filters.value.forEach((filter, i) => {
-			if (filter === category) {
-				filters.value.splice(i, 1);
-				if (filters.value.length > 0) {
-					sendPostData();
-				}
-			}
-		});
-	}
+  if (!filters.value.includes(category)) {
+    filters.value.push(category);
+  } else {
+    filters.value = filters.value.filter((filter) => filter !== category);
+  }
+
+  sendPostData();
 }
+
 function resetHandler() {
-	filters.value = [];
-	input.value = "";
+  filters.value = [];
+  input.value = "";
+  sendPostData();
 }
 </script>
 
