@@ -18,6 +18,7 @@ import {
 	faLocationDot,
 	faPhone,
 	faTrashCan,
+	faCartShopping,
 	
 	
 } from "@fortawesome/free-solid-svg-icons";
@@ -44,7 +45,8 @@ library.add(
 	faPhone,
 	faTrashCan,
 	faSquarePlus,
-	faSquareMinus
+	faSquareMinus,
+	faCartShopping
 );
 
 createApp(App).use(router).component("font-awesome-icon", FontAwesomeIcon).mount("#app");

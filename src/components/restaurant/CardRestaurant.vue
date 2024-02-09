@@ -35,6 +35,11 @@ const filteredDishes = computed(() => {
 });
 
 const isShowingMenu = ref(true);
+const isShowingCart = ref(true);
+
+const toggleCartMenu = () => {
+    isShowingCart.value = !isShowingCart.value;
+};
 
 const changeShowingStatus = (type) => {
     if (type === "info") {
@@ -78,6 +83,8 @@ const removeFromCartHandler = (dish) => {
    
 }
 
+
+
 const removeDish = (dish) => {
     const currentIndexDish = cart.value.findIndex(cartDish => cartDish.id === dish.id);
     if (currentIndexDish >= 0 ) {       
@@ -102,8 +109,7 @@ onMounted(() => {
 
 </script>
 
-<template>
-    <p></p>
+<template>    
     <section class="bg-image">
         <div class="container mx-auto transition-all duration-200 px-12 relative">
             <div class="flex flex-col justify-center items-center py-4">
@@ -121,30 +127,37 @@ onMounted(() => {
                     </div>
                     <div class="px-6 pt-4 pb-2">
                         <span v-for="category in restaurant.categories"
-                            class="inline-block bg-[#fe6346] rounded-full px-6 py-1 text-sm font-semibold text-white mr-2 mb-2 shadow-lg">{{
-                                category.name }}</span>
+                            class="inline-block bg-[#fe6346] rounded-full px-6 py-1 text-sm font-semibold text-white mr-2 mb-2 shadow-lg">
+                            {{ category.name }}
+                        </span>
                     </div>
                 </div>
-
-                <div class="absolute top-0 right-0 bg-white rounded-md lg:shadow-md mr-4 mt-4 px-[70px]">
-                    <h2 class="font-semibold text-2xl">Il tuo Carrello</h2>
-                    <div v-for="dish in cart" :key="dish.id" class="flex justify-between gap-6">
-                        <p>{{ dish.name }}</p>
-                        <p>{{ dish.price }}</p>
-                        <div class="flex gap-2">
-                            <span @click="removeFromCartHandler(dish)" class="text-gray-400 cursor-pointer"><font-awesome-icon icon="fa-regular fa-square-minus" /></span>
-                            <span>{{ dish.counter }}</span>
-                            <span @click="addToCartHandler(dish)" class="text-gray-400 cursor-pointer"><font-awesome-icon icon="fa-regular fa-square-plus" /></span>
-                            <span @click="removeDish(dish)" class="cursor-pointer text-red-500"><font-awesome-icon icon="fa-solid fa-trash-can" /></span>
-                        </div>
-
-                    </div>
-                    <div>
-                        <h3 class="font-semibold text-lg">Totale</h3>
-                        <span>{{ totalCart.toFixed(2) }}</span>
-                    </div>
+                <!-- Cart -->
+                <div class="absolute top-4 right-0 bg-white rounded-md p-3 shadow-lg border-2 cursor-pointer" @click="toggleCartMenu" v-show="isShowingCart">
+                    <font-awesome-icon class="text-3xl" icon="fa-solid fa-cart-shopping" />
                     
                 </div>
+                <div class="fixed top-0 right-0 bg-black opacity-75 text-white rounded-md lg:shadow-md px-[70px] py-[20px] h-full z-10 flex flex-col justify-between" v-show="!isShowingCart">
+                    <div>
+                        <h2 class="font-semibold text-2xl mb-4">Il tuo Carrello</h2>
+                        <div v-for="dish in cart" :key="dish.id" class="flex justify-between gap-6">
+                            <p>{{ dish.name }}</p>
+                            <p>{{ dish.price }}</p>
+                            <div class="flex gap-2">
+                                <span @click="removeFromCartHandler(dish)" class="text-gray-400 cursor-pointer"><font-awesome-icon icon="fa-regular fa-square-minus" /></span>
+                                <span>{{ dish.counter }}</span>
+                                <span @click="addToCartHandler(dish)" class="text-gray-400 cursor-pointer"><font-awesome-icon icon="fa-regular fa-square-plus" /></span>
+                                <span @click="removeDish(dish)" class="cursor-pointer text-red-500"><font-awesome-icon icon="fa-solid fa-trash-can" /></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <h3 class="font-semibold text-lg">Totale</h3>
+                        <span>{{ totalCart.toFixed(2) }}</span>
+                        <button class="border rounded-md" @click="toggleCartMenu">Chiudi</button>
+                    </div>
+                </div>
+                <!-- Cart -->
 
                 <div class="border w-[80%] p-4 rounded-2xl flex justify-around gap-10 text-xl mb-10 shadow-md bg-white">
                     <button @click.prevent="changeShowingStatus('menu')"
