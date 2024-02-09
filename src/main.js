@@ -17,8 +17,12 @@ import {
 	faCircle,
 	faLocationDot,
 	faPhone,
+	faTrashCan,
+	faCartShopping,
+	
+	
 } from "@fortawesome/free-solid-svg-icons";
-import { faAddressCard, faUser } from "@fortawesome/free-regular-svg-icons";
+import { faAddressCard, faSquarePlus, faUser , faSquareMinus } from "@fortawesome/free-regular-svg-icons";
 import { faFacebookF, faInstagram, faTiktok, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
@@ -38,7 +42,11 @@ library.add(
 	faMagnifyingGlass,
 	faCircle,
 	faLocationDot,
-	faPhone
+	faPhone,
+	faTrashCan,
+	faSquarePlus,
+	faSquareMinus,
+	faCartShopping
 );
 
 createApp(App).use(router).component("font-awesome-icon", FontAwesomeIcon).mount("#app");

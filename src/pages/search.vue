@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onUnmounted } from "vue";
 import { store } from "../store";
 import axios from "axios";
 import Button from "../components/index/Button.vue";
@@ -11,9 +11,23 @@ const restaurants = ref([]);
 const categories = ref([]);
 const categoriesCount = ref([]);
 
-const filter = ref("");
+const filters = ref([]);
+const filteredRestaurants = ref([]);
 
 const input = ref(store.searchQuery);
+
+if (input.value) {
+	sendPostData();
+}
+
+if (store.selectedCategory) {
+	filters.value.push(store.selectedCategory);
+	sendPostData();
+}
+
+onUnmounted(() => {
+	resetHandler();
+});
 
 const slugify = (str) =>
 	str
@@ -45,42 +59,48 @@ function categoryCounter(category) {
 	}
 }
 
-const rawRestaurants = computed(() => {
-	const tempArr = [];
-
-	restaurants.value.forEach((restaurant) => {
-		if (restaurant.name.toLowerCase().includes(input.value.toLowerCase())) {
-			tempArr.push(restaurant);
-		}
-	});
-
-	return tempArr;
-});
-
-const filteredRestaurants = computed(() => {
-	if (filter.value) {
-		let tempArr = [];
-		rawRestaurants.value.forEach((restaurant) => {
-			for (let i = 0; i < restaurant.categories.length; i++) {
-				if (restaurant.categories[i].name === filter.value) {
-					tempArr.push(restaurant);
-				}
-			}
-		});
-		return tempArr;
+const restaurantsData = computed(() => {
+	if (filters.value.length > 0 || input.value) {
+		return filteredRestaurants.value;
 	} else {
-		return rawRestaurants.value;
+		return restaurants.value;
 	}
 });
 
-const handleClick = (category) => {
-	filter.value = category;
-};
+async function sendPostData() {
+	try {
+		const response = await axios.post(`${store.apiUrl}/restaurants/filter`, {
+			categories: filters.value,
+			query: input.value,
+		});
 
-const resetHandler = () => {
-	filter.value = "";
+		filteredRestaurants.value = response.data.restaurants;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+function handleClick(category) {
+	if (!filters.value.includes(category)) {
+		filters.value.push(category);
+		sendPostData();
+	} else {
+		filters.value.forEach((filter, i) => {
+			if (filter === category) {
+				filters.value.splice(i, 1);
+			}
+		});
+		if (filters.value.length > 0) {
+			sendPostData();
+		}
+	}
+}
+
+function resetHandler() {
+	filters.value = [];
+	store.selectedCategory = "";
 	input.value = "";
-};
+}
 </script>
 
 <template>
@@ -100,7 +120,7 @@ const resetHandler = () => {
 					<li
 						class="border transition-colors duration-200 cursor-pointer border-slate-200 flex justify-between items-center rounded-xl px-4 py-3"
 						:key="category.id"
-						:class="filter === category.name ? 'text-[#FFA500]' : ''"
+						:class="filters.includes(category.name) ? 'text-[#fd6146]' : 'ciao'"
 						@click.prevent="handleClick(category.name)"
 						v-for="category in categories">
 						<span>{{ category.name }}</span>
@@ -117,6 +137,7 @@ const resetHandler = () => {
 						<input
 							type="text"
 							id="input-group-1"
+							@input.prevent="sendPostData"
 							v-model="input"
 							class="z-10 w-full border-4 border-[#FFA500] text-base rounded-lg hover:border-[#FFD700] focus:outline-none block ps-10 p-2.5"
 							placeholder="Cerca il tuo ristorante preferito" />
@@ -130,14 +151,14 @@ const resetHandler = () => {
 				<div class="flex flex-col gap-6">
 					<h4 class="text-xl">{{ restaurants.length }} ristoranti aperti</h4>
 					<Transition>
-						<span v-if="filteredRestaurants.length === 0">La ricerca non ha prodotto risultati</span>
+						<span v-if="restaurants.length === 0">La ricerca non ha prodotto risultati</span>
 					</Transition>
 
 					<TransitionGroup>
 						<div
-							v-show="filteredRestaurants.length > 0"
+							v-show="restaurants.length > 0"
 							:key="restaurant.id"
-							v-for="restaurant in filteredRestaurants"
+							v-for="restaurant in restaurantsData"
 							class="grid grid-cols-2 lg:grid-cols-3 gap-6">
 							<img
 								draggable="false"
@@ -198,7 +219,7 @@ const resetHandler = () => {
 <style scoped>
 .v-enter-active,
 .v-leave-active {
-	transition: opacity 0.265s ease;
+	transition: opacity 0.2s ease;
 }
 
 .v-enter-from,
