@@ -155,7 +155,8 @@ function resetHandler() {
 					</Transition>
 
 					<TransitionGroup>
-						<div
+						<RouterLink
+							:to="{ name: 'restaurant', params: { slug: restaurant.slug } }"
 							v-show="restaurants.length > 0"
 							:key="restaurant.id"
 							v-for="restaurant in restaurantsData"
@@ -208,7 +209,7 @@ function resetHandler() {
 									<span>{{ restaurant.phone_number }}</span>
 								</div>
 							</div>
-						</div>
+						</RouterLink>
 					</TransitionGroup>
 				</div>
 			</div>
