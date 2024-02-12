@@ -1,8 +1,7 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed } from "vue";
 import axios from "axios";
 import { store } from "../../store.js";
-import CardDish from "./CardDish.vue";
 import { useStorage } from "@vueuse/core";
 
 const restaurant = ref([]);
@@ -10,11 +9,10 @@ const dishes = ref([]);
 const input = ref("");
 const cart = useStorage("cart", []);
 
-const { slug } = defineProps(["slug"]);
-defineEmits(["addToCart"]);
-
-axios.get(`${store.apiUrl}/restaurant/${slug}`).then((res) => {
+axios.get(`${store.apiUrl}/restaurant/yuzu-sushi`).then((res) => {
 	restaurant.value = res.data.restaurant;
+});
+axios.get(`${store.apiUrl}/dishes`).then((res) => {
 	dishes.value = res.data.dishes;
 });
 
@@ -56,33 +54,30 @@ const total = computed(() => {
 	return temp.toFixed(2);
 });
 
-const cartCounter = (dish) => {
-	const cartDish = cart.value.find((item) => item.id === dish.id);
-	if (cartDish) {
-		return cartDish.counter;
-	}
-	return 0;
+const getDishCounter = (dish) => {
+	const cartDish = cart.value.find((cartDish) => cartDish.id === dish.id);
+	return cartDish ? cartDish.counter : 0;
 };
 
 const addToCartHandler = (dish) => {
-	if (isShowingCart.value) {
-		toggleCartMenu();
-	}
-
+	// Verifica se il piatto è già presente nel carrello
 	const existingDish = cart.value.find((cartDish) => cartDish.id === dish.id);
 
 	if (existingDish) {
+		// Se il piatto è già presente, incrementa il suo contatore
 		if (existingDish.counter < 100) {
 			existingDish.counter++;
 		}
 	} else {
+		// Se il piatto non è presente, aggiungilo al carrello con contatore iniziale 1
 		cart.value.push({ ...dish, counter: 1 });
 	}
 };
 
 const removeFromCartHandler = (dish) => {
-	if (dish.counter > 1) {
-		dish.counter--;
+	const existingDish = cart.value.find((cartDish) => cartDish.id === dish.id);
+	if (existingDish.counter > 1) {
+		existingDish.counter--;
 	} else {
 		removeDish(dish);
 	}
@@ -131,28 +126,23 @@ const removeDish = (dish) => {
 						icon="fa-solid fa-cart-shopping" />
 				</div>
 				<div
-					class="fixed top-0 right-0 bg-slate-800 opacity-75 text-white w-[460px] lg:shadow-md px-[30px] py-[20px] h-full z-10 flex flex-col justify-between"
+					class="fixed top-0 right-0 bg-black opacity-75 text-white rounded-md lg:shadow-md px-[70px] py-[20px] h-full z-10 flex flex-col justify-between"
 					v-show="!isShowingCart">
 					<div>
-						<h2 class="font-semibold text-[#fe6146] text-2xl mb-4">Il tuo Carrello</h2>
+						<h2 class="font-semibold text-2xl mb-4">Il tuo Carrello</h2>
 						<div
 							v-for="dish in cart"
 							:key="dish.id"
-							class="flex mt-8 items-center justify-between gap-10">
-							<span class="flex-grow">{{ dish.name }}</span>
-							<span class="flex-shrink">{{ dish.price }}</span>
-							<div class="flex gap-2 flex-shrink">
+							class="flex justify-between gap-6">
+							<p>{{ dish.name }}</p>
+							<p>{{ dish.price }}</p>
+							<div class="flex gap-2">
 								<span
 									@click="removeFromCartHandler(dish)"
 									class="text-gray-400 cursor-pointer"
 									><font-awesome-icon icon="fa-regular fa-square-minus"
 								/></span>
-								<input
-									min="0"
-									max="100"
-									class="w-[35px] text-center appearance-none bg-transparent"
-									v-model="dish.counter"
-									type="text" />
+								<span>{{ dish.counter }}</span>
 								<span
 									@click="addToCartHandler(dish)"
 									class="text-gray-400 cursor-pointer"
@@ -204,19 +194,35 @@ const removeDish = (dish) => {
 						class="border-4 border-[#FFA500] rounded-lg w-full hover:border-[#FFD700] focus:outline-none block ps-10 p-2.5 font-medium lg:w-96"
 						placeholder="Cerca un piatto" />
 				</div>
-
-				<section
-					v-show="isShowingMenu"
+				<div
 					v-for="dish in filteredDishes"
 					:key="dish.id"
-					@click="addToCartHandler(dish)"
-					class="flex justify-between w-full mb-8 bg-white hover:scale-[1.02] transition-all duration-300">
-					<div class="border rounded-md p-6 hover:shadow-lg cursor-pointer transition-all duration-300">
-						<p class="sm:text-xl text-lg">{{ dish.name }}</p>
-						<span class="text-lg font-bold">{{ dish.price }} &euro;</span>
+					class="w-full mb-8 bg-white hover:scale-[1.02] transition-all duration-300">
+					<div class="flex justify-between items-center border rounded-md p-6 hover:shadow-lg cursor-pointer transition-all duration-300">
+						<div>
+							<p class="sm:text-xl text-lg">{{ dish.name }}</p>
+							<span class="text-lg font-bold">{{ dish.price }} &euro;</span>
+						</div>
+						<div class="flex gap-2">
+							<span
+								@click="removeFromCartHandler(dish)"
+								class="text-gray-400 cursor-pointer"
+								><font-awesome-icon icon="fa-regular fa-square-minus"
+							/></span>
+							<span class="flex text-lg font-semibold">{{ getDishCounter(dish) }}</span>
+							<span
+								@click="addToCartHandler(dish)"
+								class="text-gray-400 cursor-pointer"
+								><font-awesome-icon icon="fa-regular fa-square-plus"
+							/></span>
+							<span
+								@click="removeDish(dish)"
+								class="cursor-pointer text-red-500"
+								><font-awesome-icon icon="fa-solid fa-trash-can"
+							/></span>
+						</div>
 					</div>
-					<span> {{ cartCounter(dish) }}</span>
-				</section>
+				</div>
 
 				<div v-show="!isShowingMenu">sezione info</div>
 			</div>
