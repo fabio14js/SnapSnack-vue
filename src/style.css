@@ -5,9 +5,10 @@
 @tailwind utilities;
 
 * {
-  font-family: "IBM Plex Sans", sans-serif;
+	font-family: "IBM Plex Sans", sans-serif;
 }
 
 html {
-  overflow-x: hidden;
+	overflow-x: hidden;
+	scroll-behavior: smooth;
 }

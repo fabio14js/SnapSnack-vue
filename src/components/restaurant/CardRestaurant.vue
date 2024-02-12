@@ -17,14 +17,6 @@ const { slug } = defineProps(["slug"]);
 axios.get(`${store.apiUrl}/restaurant/${slug}`).then((res) => {
 	restaurant.value = res.data.restaurant;
 	dishes.value = res.data.dishes;
-	cart.value.forEach((item) => {
-		if (item.restaurant_id !== restaurant.value.id) {
-			isModalOpen.value = true;
-			if (isModalOpen.value) {
-				document.documentElement.style.overflow = "hidden";
-			}
-		}
-	});
 });
 
 const filteredDishes = computed(() => {
@@ -71,17 +63,25 @@ const getDishCounter = (dish) => {
 };
 
 const addToCartHandler = (dish) => {
-	// Verifica se il piatto è già presente nel carrello
-	const existingDish = cart.value.find((cartDish) => cartDish.id === dish.id);
-
-	if (existingDish) {
-		// Se il piatto è già presente, incrementa il suo contatore
-		if (existingDish.counter < 100) {
-			existingDish.counter++;
+	let valid = true;
+	cart.value.forEach((item) => {
+		if (item.restaurant_id !== restaurant.value.id) {
+			scrollTop();
+			isModalOpen.value = true;
+			document.documentElement.style.overflow = "hidden";
+			valid = false;
 		}
-	} else {
-		// Se il piatto non è presente, aggiungilo al carrello con contatore iniziale 1
-		cart.value.push({ ...dish, counter: 1 });
+	});
+	if (valid) {
+		const existingDish = cart.value.find((cartDish) => cartDish.id === dish.id);
+
+		if (existingDish) {
+			if (existingDish.counter < 100) {
+				existingDish.counter++;
+			}
+		} else {
+			cart.value.push({ ...dish, counter: 1 });
+		}
 	}
 };
 
@@ -124,6 +124,10 @@ const modalHandleClick = (resp) => {
 		});
 	}
 };
+
+onMounted(() => {
+	scrollTop();
+});
 </script>
 
 <template>
@@ -249,6 +253,7 @@ const modalHandleClick = (resp) => {
 						placeholder="Cerca un piatto" />
 				</div>
 				<div
+					v-show="isShowingMenu"
 					v-for="dish in filteredDishes"
 					:key="dish.id"
 					class="w-full mb-8 bg-white hover:scale-[1.02] transition-all duration-300">
