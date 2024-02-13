@@ -87,10 +87,12 @@ const addToCartHandler = (dish) => {
 
 const removeFromCartHandler = (dish) => {
 	const existingDish = cart.value.find((cartDish) => cartDish.id === dish.id);
-	if (existingDish.counter > 1) {
-		existingDish.counter--;
-	} else {
-		removeDish(dish);
+	if (existingDish) {
+		if (existingDish.counter > 1) {
+			existingDish.counter--;
+		} else {
+			removeDish(dish);
+		}
 	}
 };
 
@@ -125,9 +127,27 @@ const modalHandleClick = (resp) => {
 	}
 };
 
+const cartCounter = computed(() => {
+	let quantity = 0;
+	if (cart.value.length < 0) {
+		return 0;
+	}
+	cart.value.forEach((item) => {
+		quantity += item.counter;
+	});
+	return quantity;
+});
+
 onMounted(() => {
 	scrollTop();
 });
+
+function handlePayment() {
+	router.push({
+		name: "restaurant",
+		params: { slug: store.searchQuery ? slugify(input.value) : "all" },
+	});
+}
 </script>
 
 <template>
@@ -176,15 +196,16 @@ onMounted(() => {
 				</div>
 				<!-- Cart -->
 				<div
-					class="absolute top-4 right-0 bg-white rounded-md p-3 shadow-lg border-2 cursor-pointer"
+					class="fixed top-[200px] right-[20px] bg-white rounded-md p-3 shadow-lg border-2 cursor-pointer"
 					@click="toggleCartMenu"
 					v-show="isShowingCart">
 					<font-awesome-icon
 						class="text-3xl"
 						icon="fa-solid fa-cart-shopping" />
+					<span class="absolute bottom-0 text-base left-[6px] font-semibold text-red-500">{{ cartCounter }}</span>
 				</div>
 				<div
-					class="fixed top-0 right-0 bg-black opacity-75 text-white rounded-md lg:shadow-md px-[70px] py-[20px] h-full z-10 flex flex-col justify-between"
+					class="fixed overflow-hidden w-[100%] md:w-[55%] lg:w-[45%] transition-all duration-200 top-0 right-0 bg-black opacity-75 text-white md:rounded-l-md lg:shadow-md p-[15px] sm:p-2 md:px-[70px] py-10 md:py-[20px] h-full z-10 flex flex-col justify-between"
 					v-show="!isShowingCart">
 					<div>
 						<h2 class="font-semibold text-2xl mb-4">Il tuo Carrello</h2>
@@ -192,8 +213,8 @@ onMounted(() => {
 							v-for="dish in cart"
 							:key="dish.id"
 							class="flex justify-between gap-6">
-							<p>{{ dish.name }}</p>
-							<p>{{ dish.price }}</p>
+							<span class="flex-grow whitespace-nowrap">{{ dish.name.length > 24 ? dish.name.slice(0, 24) + "..." : dish.name }}</span>
+							<span>{{ dish.price }}</span>
 							<div class="flex gap-2">
 								<span
 									@click="removeFromCartHandler(dish)"
@@ -216,11 +237,16 @@ onMounted(() => {
 					</div>
 					<div class="flex flex-col gap-4">
 						<h3 class="font-semibold text-lg">Totale</h3>
-						<span>{{ total }}</span>
+						<span>{{ total }} &euro;</span>
 						<button
 							class="border rounded-md"
 							@click="toggleCartMenu">
 							Chiudi
+						</button>
+						<button
+							class="border rounded-md"
+							@click="handlePayment">
+							Procedi con il pagamento
 						</button>
 					</div>
 				</div>

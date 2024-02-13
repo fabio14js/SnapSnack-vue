@@ -112,7 +112,7 @@ function resetHandler() {
 					<span
 						@click.prevent="resetHandler"
 						class="cursor-pointer text-sm hover:text-[#fd6146] transition-colors duration-200"
-						>Resetta filtri</span
+						>Azzera filtri</span
 					>
 				</div>
 
