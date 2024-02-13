@@ -303,8 +303,8 @@ function handlePayment() {
 							<span
 								@click="removeDish(dish)"
 								class="cursor-pointer text-red-500"
-								><font-awesome-icon icon="fa-solid fa-trash-can"
-							/></span>
+								><font-awesome-icon icon="fa-solid fa-trash-can" />
+							</span>
 						</div>
 					</div>
 				</div>
