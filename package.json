@@ -17,8 +17,11 @@
     "@fortawesome/vue-fontawesome": "^3.0.6",
     "@vueuse/core": "^10.7.2",
     "axios": "^1.6.7",
+    "braintree": "^3.21.0",
+    "braintree-web-drop-in": "^1.42.0",
     "v-lazy-image": "^2.1.1",
     "vue": "^3.3.11",
+    "vue-braintree": "^2.1.0",
     "vue-dragscroll": "^4.0.5",
     "vue-router": "^4.2.5"
   },
