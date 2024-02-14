@@ -37,6 +37,7 @@ const filteredDishes = computed(() => {
 const isShowingMenu = ref(true);
 const isShowingCart = ref(true);
 
+
 const toggleCartMenu = () => {
 	isShowingCart.value = !isShowingCart.value;
 };
@@ -89,11 +90,14 @@ const removeFromCartHandler = (dish) => {
 	const existingDish = cart.value.find((cartDish) => cartDish.id === dish.id);
 	if (existingDish) {
 		if (existingDish.counter > 1) {
-			existingDish.counter--;
+			existingDish.counter--;            
 		} else {
-			removeDish(dish);
+            removeDish(dish);
+            
 		}
 	}
+    
+    
 };
 
 const removeDish = (dish) => {
@@ -195,14 +199,14 @@ function handlePayment() {
 					</div>
 				</div>
 				<!-- Cart -->
-				<div
+				<div 
 					class="fixed top-[200px] right-[20px] bg-white rounded-md p-3 shadow-lg border-2 cursor-pointer"
 					@click="toggleCartMenu"
 					v-show="isShowingCart">
 					<font-awesome-icon
 						class="text-3xl"
 						icon="fa-solid fa-cart-shopping" />
-					<span class="absolute bottom-0 text-base left-[6px] font-semibold text-red-500">{{ cartCounter }}</span>
+					<span v-show="cartCounter > 0" class="absolute flex justify-center items-center top-[-16px] right-[-16px] p-[12px] w-[20px] h-[20px] bg-white rounded-full border-2 text-xs font-semibold text-red-500">{{ cartCounter }}</span>
 				</div>
 				<div
 					class="fixed overflow-hidden w-[100%] md:w-[55%] lg:w-[45%] transition-all duration-200 top-0 right-0 bg-black opacity-75 text-white md:rounded-l-md lg:shadow-md p-[15px] sm:p-2 md:px-[70px] py-10 md:py-[20px] h-full z-10 flex flex-col justify-between"
