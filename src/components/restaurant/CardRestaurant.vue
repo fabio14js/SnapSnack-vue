@@ -148,12 +148,15 @@ onMounted(() => {
 	scrollTop();
 });
 
-function handlePayment() {
-	router.push({
-		name: "restaurant",
-		params: { slug: store.searchQuery ? slugify(input.value) : "all" },
-	});
-}
+function handlePayment() {    
+    if (cart.value.length > 0) {
+        router.push({
+            name: "payment",
+            
+        });
+    }
+
+    }
 </script>
 
 <template>

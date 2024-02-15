@@ -1,11 +1,19 @@
 <script setup>
-import { ref, computed, defineEmits } from "vue";
+import { ref, computed } from "vue";
 import UserData from "../components/payment/UserData.vue";
 import PaymentData from "../components/payment/PaymentData.vue";
+import { useStorage } from "@vueuse/core";
+import { useRouter } from "vue-router";
+import axios from "axios";
+import Complete from "../components/payment/Complete.vue";
+import { store } from "../store";
+
+const router = useRouter()
 
 const currentPage = ref('userData')
 
 defineEmits (['customUserDataSubmit', 'customPaymentSubmit']);
+const cart = useStorage("cart", []);
 
 const userData = ref({})
 
@@ -22,10 +30,23 @@ function handleUserDataSubmit(formData) {
     console.log(currentPage.value)
 }
 
-function handlePaymentSubmit() {
+async function handlePaymentSubmit() {
+    console.log('completato')
     controller.value.payment = true
     currentPage.value = 'isCompleted'
-    console.log(currentPage.value)
+    
+    await axios.post(`${store.apiUrl}/order`, {
+        cart: cart.value,
+        user: userData.value
+    }).then ((resp) => {
+        console.log(resp)
+    });
+
+    router.push({
+        name: "restaurant",
+        params: { slug: resp.data.restaurant.slug },
+    });
+
 }
 
 const isCompleted = computed(() => {
@@ -44,8 +65,9 @@ const isCompleted = computed(() => {
         </div>
     </div>
     <UserData v-if="!controller.userData" @customUserDataSubmit="handleUserDataSubmit" />
-    <PaymentData v-else @customPaymentSubmit="handlePaymentSubmit" />
+    <PaymentData v-if="controller.userData && !isCompleted" @customPaymentSubmit="handlePaymentSubmit" />
+    <Complete v-if="isCompleted"/>
 </template>
 
 
-<style scoped></style>
+
