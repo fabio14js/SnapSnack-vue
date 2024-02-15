@@ -4,6 +4,8 @@ import axios from "axios";
 import { store } from "../../store.js";
 import { useStorage } from "@vueuse/core";
 import { useRouter } from "vue-router";
+import InfoRestaurant from "./InfoRestaurant.vue";
+
 
 const restaurant = ref([]);
 const dishes = ref([]);
@@ -200,6 +202,7 @@ function handlePayment() {
 				</div>
 				<!-- Cart -->
 				<div 
+                    v-if="isShowingMenu"
 					class="fixed top-[200px] right-[20px] bg-white rounded-md p-3 shadow-lg border-2 cursor-pointer"
 					@click="toggleCartMenu"
 					v-show="isShowingCart">
@@ -256,7 +259,7 @@ function handlePayment() {
 				</div>
 				<!-- Cart -->
 
-				<div class="border w-[80%] p-4 rounded-2xl flex justify-around gap-10 text-xl mb-10 shadow-md bg-white">
+				<div class="border w-[80%] md:p-4 sm:p-2 p-1 rounded-2xl flex justify-around text-xl mb-10 shadow-md bg-white">
 					<button
 						@click.prevent="changeShowingStatus('menu')"
 						class="line-orange menu cursor-pointer p-4 relative hover:font-semibold">
@@ -280,14 +283,14 @@ function handlePayment() {
 						id="input-group-1"
 						v-model="input"
 						class="border-4 border-[#FFA500] rounded-lg w-full hover:border-[#FFD700] focus:outline-none block ps-10 p-2.5 font-medium lg:w-96"
-						placeholder="Cerca un piatto" />
+						placeholder="Trova il tuo piatto preferito" />
 				</div>
 				<div
 					v-show="isShowingMenu"
 					v-for="dish in filteredDishes"
 					:key="dish.id"
 					class="w-full mb-8 bg-white hover:scale-[1.02] transition-all duration-300">
-					<div class="flex justify-between items-center border rounded-md p-6 hover:shadow-lg cursor-pointer transition-all duration-300">
+					<div class="flex sm:justify-between flex-col gap-3 sm:flex-row items-center text-center sm:text-left border rounded-md p-3 md:p-6 hover:shadow-lg cursor-pointer transition-all duration-300">
 						<div>
 							<p class="sm:text-xl text-lg">{{ dish.name }}</p>
 							<span class="text-lg font-bold">{{ dish.price }} &euro;</span>
@@ -313,7 +316,10 @@ function handlePayment() {
 					</div>
 				</div>
 
-				<div v-show="!isShowingMenu">sezione info</div>
+				<div v-show="!isShowingMenu">
+                    <InfoRestaurant :restaurant="restaurant"/>
+                    
+                </div>
 			</div>
 		</div>
 	</section>
