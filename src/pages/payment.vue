@@ -8,66 +8,79 @@ import axios from "axios";
 import Complete from "../components/payment/Complete.vue";
 import { store } from "../store";
 
-const router = useRouter()
+const router = useRouter();
 
-const currentPage = ref('userData')
+const currentPage = ref("userData");
 
-defineEmits (['customUserDataSubmit', 'customPaymentSubmit']);
+defineEmits(["customUserDataSubmit", "customPaymentSubmit"]);
 const cart = useStorage("cart", []);
 
-const userData = ref({})
+const userData = ref({});
 
 const controller = ref({
-    userData: false,
-    payment: false
-})
+	userData: false,
+	payment: false,
+});
 
 function handleUserDataSubmit(formData) {
-    userData.value = formData
-    controller.value.userData = true
-    console.log(userData.value, controller.value)
-    currentPage.value = 'payment'
-    console.log(currentPage.value)
+	userData.value = formData;
+	controller.value.userData = true;
+	currentPage.value = "payment";
 }
 
 async function handlePaymentSubmit() {
-    console.log('completato')
-    controller.value.payment = true
-    currentPage.value = 'isCompleted'
-    
-    await axios.post(`${store.apiUrl}/order`, {
-        cart: cart.value,
-        user: userData.value
-    }).then ((resp) => {
-        console.log(resp)
-    });
+	controller.value.payment = true;
+	currentPage.value = "isCompleted";
 
-    router.push({
-        name: "restaurant",
-        params: { slug: resp.data.restaurant.slug },
-    });
+	setTimeout(() => {
+		router.push({
+			name: "home",
+		});
+	}, 4000);
 
+	console.log(cart.value);
+	console.log(userData.value);
+
+	await axios
+		.post(`${store.apiUrl}/order`, {
+			cart: cart.value,
+			user: userData.value,
+		})
+		.then((resp) => {
+			console.log("start");
+		});
 }
 
 const isCompleted = computed(() => {
-  return controller.value.userData && controller.value.payment;
+	return controller.value.userData && controller.value.payment;
 });
-
-
 </script>
 
 <template>
-    <div class="container mx-auto transition-all duration-200 px-12 my-10 relative">
-        <div class="bg-[#f5deb398] drop-shadow-md grid grid-cols-3 w-full font-bold">
-            <div :class="currentPage === 'userData' ? 'bg-[wheat]' : ''" class="flex justify-center items-center py-6 px-4">Dati Personali</div>
-            <div :class="currentPage === 'payment' ? 'bg-[wheat]' : ''" class="flex justify-center items-center py-6 px-4">Dati Pagamento</div>
-            <div :class="isCompleted ? 'bg-[wheat]' : ''" class="flex justify-center items-center py-6 px-4">Stato Ordine</div>
-        </div>
-    </div>
-    <UserData v-if="!controller.userData" @customUserDataSubmit="handleUserDataSubmit" />
-    <PaymentData v-if="controller.userData && !isCompleted" @customPaymentSubmit="handlePaymentSubmit" />
-    <Complete v-if="isCompleted"/>
+	<div class="container mx-auto transition-all duration-200 px-12 my-10 relative">
+		<div class="bg-[#f5deb398] drop-shadow-md grid grid-cols-3 w-full font-bold">
+			<div
+				:class="currentPage === 'userData' ? 'bg-[wheat]' : ''"
+				class="flex justify-center items-center py-6 px-4">
+				Dati Personali
+			</div>
+			<div
+				:class="currentPage === 'payment' ? 'bg-[wheat]' : ''"
+				class="flex justify-center items-center py-6 px-4">
+				Dati Pagamento
+			</div>
+			<div
+				:class="isCompleted ? 'bg-[wheat]' : ''"
+				class="flex justify-center items-center py-6 px-4">
+				Stato Ordine
+			</div>
+		</div>
+	</div>
+	<UserData
+		v-if="!controller.userData"
+		@customUserDataSubmit="handleUserDataSubmit" />
+	<PaymentData
+		v-if="controller.userData && !isCompleted"
+		@customPaymentSubmit="handlePaymentSubmit" />
+	<Complete v-if="isCompleted" />
 </template>
-
-
-
