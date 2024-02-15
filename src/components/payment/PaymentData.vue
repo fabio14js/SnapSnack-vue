@@ -3,9 +3,10 @@
 import { onMounted, getCurrentInstance, ref } from 'vue';
 
 
+const instance = getCurrentInstance();
+
 
 function handleEmit() {
-    const instance = getCurrentInstance();
     instance.emit('customPaymentSubmit');
 }
 
@@ -21,7 +22,7 @@ onMounted (() => {
       button.addEventListener('click', function () {
         instance.requestPaymentMethod(function (err, payload) {            
           handleEmit()
-          
+
         });
       })
     });
@@ -33,10 +34,12 @@ onMounted (() => {
 
 <template>
 
-    <div class="container mx-auto transition-all duration-200 px-12 my-10 relative">
-        <div id="dropin-container"></div>
-        <button id="submit-button" class="">Purchase</button>
+    <div class="container mx-auto transition-all duration-200 px-12 my-10 relative text-center">
+        <div id="dropin-container">
 
+        </div>      
+        
+        <button id="submit-button" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Invia</button>
     </div>
 
 
