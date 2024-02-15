@@ -31,12 +31,15 @@ function handleUserDataSubmit(formData) {
 async function handlePaymentSubmit() {
 	controller.value.payment = true;
 	currentPage.value = "isCompleted";
-
+	
+	cart.value = []
 	setTimeout(() => {
 		router.push({
 			name: "home",
 		});
-	}, 4000);
+	}, 5000);
+
+	
 
 	console.log(cart.value);
 	console.log(userData.value);
@@ -57,7 +60,7 @@ const isCompleted = computed(() => {
 </script>
 
 <template>
-	<div class="container mx-auto transition-all duration-200 px-12 my-10 relative">
+	<div class="container mx-auto transition-all duration-200 px-12 my-10 relative text-center">
 		<div class="bg-[#f5deb398] drop-shadow-md grid grid-cols-3 w-full font-bold">
 			<div
 				:class="currentPage === 'userData' ? 'bg-[wheat]' : ''"
