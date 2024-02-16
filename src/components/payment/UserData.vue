@@ -36,7 +36,7 @@ function validateEmit() {
 
   if (
     formData.value.firstName === "" ||
-    formData.value.firstName.length <= 3 ||
+    formData.value.firstName.length < 3 ||
     formData.value.firstName.length > 50 ||
     isOnlyNumber(formData.value.firstName)
   ) {
@@ -48,7 +48,7 @@ function validateEmit() {
 
   if (
     formData.value.lastName === "" ||
-    formData.value.lastName.length <= 3 ||
+    formData.value.lastName.length < 3 ||
     formData.value.lastName.length > 50 ||
     isOnlyNumber(formData.value.lastName)
   ) {
@@ -60,7 +60,7 @@ function validateEmit() {
 
   if (
     formData.value.email === "" ||
-    formData.value.email.length < 1 ||
+    formData.value.email.length < 5 ||
     formData.value.email.length > 255 ||
     !validateEmail(formData.value.email)
   ) {

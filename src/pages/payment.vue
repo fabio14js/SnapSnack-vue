@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import UserData from "../components/payment/UserData.vue";
 import PaymentData from "../components/payment/PaymentData.vue";
 import { useStorage } from "@vueuse/core";
@@ -7,6 +7,14 @@ import { useRouter } from "vue-router";
 import axios from "axios";
 import Complete from "../components/payment/Complete.vue";
 import { store } from "../store";
+
+function scrollTop() {
+	window.scrollTo(0, 0);
+}
+
+onMounted(()=>{
+	scrollTop();
+})
 
 const router = useRouter();
 
