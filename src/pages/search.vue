@@ -76,7 +76,7 @@ async function sendPostData() {
 
 		filteredRestaurants.value = response.data.restaurants;
 	} catch (error) {
-		console.error(error);
+		// console.error(error);
 	}
 }
 
