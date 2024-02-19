@@ -23,7 +23,7 @@ import Button from "./Button.vue";
 				<Button
 					:icon="'fa-regular fa-address-card'"
 					:text="'Accedi/Registrati'"
-					:link="'/'" />
+					:link="'http://localhost:8000/'" />
 			</li>
 			<li>
 				<font-awesome-icon

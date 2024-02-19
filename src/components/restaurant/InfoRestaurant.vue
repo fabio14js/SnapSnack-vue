@@ -7,11 +7,11 @@ const { props } = defineProps(['restaurant']);
 <template>
     
         
-    <div class="bg-white p-2 md:p-4 drop-shadow-md rounded-md flex flex-col gap-4 mb-4">
+    <div v-if="restaurant.description" class="bg-white p-2 md:p-4 drop-shadow-md rounded-md flex flex-col gap-4 mb-4">
         <h2 class="lg:text-lg md:text-base font-semibold">Chi siamo</h2>         
 
-        <p class="text-sm md:text-base">                
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore necessitatibus alias eveniet tempore vel perferendis delectus explicabo enim quod esse, dolor rerum ex temporibus odio iste nostrum aliquid animi doloribus fugit optio. Fugiat natus, harum accusantium perspiciatis iste illo explicabo eaque, earum saepe sed expedita nesciunt beatae adipisci. Sunt, molestias? Magni dolore vel doloribus blanditiis tempora eius quae error, praesentium impedit possimus, sunt ducimus consequuntur. Corrupti ipsam, pariatur molestias aliquid ex magnam provident sit, illum vero consequuntur officiis commodi consequatur impedit ad temporibus, quam explicabo non nisi a. Omnis, consectetur fugit! Amet distinctio ex id quod, blanditiis itaque vero vitae.
+        <p class="text-sm md:text-base">  
+            {{ restaurant.description }}              
         </p>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10">

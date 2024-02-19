@@ -191,10 +191,7 @@ function handlePayment() {
 							{{ restaurant.address }}
 						</p>
 					</div>
-					<div class="bg-zinc-300/[.73] rounded-md p-2 m-2 text-sm flex gap-4 shadow-lg">
-						<p>Costo Spedizione <span class="font-bold">3,99 $</span></p>
-						<p>Ordina minimo <span class="font-bold">5,99 $</span></p>
-					</div>
+					
 					<div class="px-6 pt-4 pb-2">
 						<span
 							v-for="category in restaurant.categories"
