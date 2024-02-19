@@ -22,7 +22,7 @@ import Button from "./Button.vue";
 			<li class="justify-center items-center gap-1 hidden sm:flex">
 				<Button
 					:icon="'fa-regular fa-address-card'"
-					:text="'Accedi/Registrati'"
+					:text="'Area Ristoratore'"
 					:link="'http://localhost:8000/'" />
 			</li>
 			<li>
