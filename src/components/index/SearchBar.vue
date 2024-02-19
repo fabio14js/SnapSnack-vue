@@ -31,6 +31,6 @@ const input = ref(store.searchQuery);
 		@keyup.enter="searchRestaurant"
 		id="input-group-1"
 		v-model="input"
-		class="z-10 w-[370px] border-4 border-[#FFA500] text-base rounded-lg hover:border-[#FFD700] focus:outline-none block ps-10 p-2.5"
+		class="z-10 w-[280px] sm:w-[300px] md:w-[370px] border-4 border-[#FFA500] text-base rounded-lg hover:border-[#FFD700] focus:outline-none block ps-10 p-2.5"
 		placeholder="Inserisci il nome del tuo ristorante preferito" />
 </template>

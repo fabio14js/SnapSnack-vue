@@ -26,9 +26,11 @@ import Button from "./Button.vue";
 					:link="'http://localhost:8000/'" />
 			</li>
 			<li>
-				<font-awesome-icon
-					:icon="'fa-regular fa-address-card'"
-					class="text-[#FFA500] cursor-pointer text-3xl inline-block sm:hidden" />
+				<a href="http://localhost:8000/">
+					<font-awesome-icon
+						:icon="'fa-regular fa-address-card'"
+						class="text-[#FFA500] cursor-pointer text-3xl inline-block sm:hidden" />
+				</a>
 			</li>
 			<!-- <li class="flex justify-center items-center gap-1">
         <Button :icon="'fa-regular fa-user'" :text="'Il Mio Account'" :link="'/'" />
