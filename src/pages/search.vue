@@ -150,9 +150,8 @@ function resetHandler() {
 				</div>
 				<div class="flex flex-col gap-6">
 					<h4 class="text-xl">{{ restaurants.length }} ristoranti aperti</h4>
-					<Transition>
-						<span v-if="restaurants.length === 0">La ricerca non ha prodotto risultati</span>
-					</Transition>
+
+					<span v-if="restaurantsData.length === 0">La ricerca non ha prodotto risultati</span>
 
 					<TransitionGroup>
 						<RouterLink
@@ -164,7 +163,7 @@ function resetHandler() {
 							<img
 								draggable="false"
 								class="rounded-2xl drop-shadow cursor-pointer w-full h-[189px] object-center object-cover"
-								:src="restaurant.photo" />
+								:src="restaurant.is_default === 0 ? 'http://127.0.0.1:8000/storage/' + restaurant.photo : restaurant.photo" />
 							<div class="flex flex-col gap-4">
 								<h2 class="font-bold text-xl cursor-pointer drop-shadow-md">{{ restaurant.name }}</h2>
 								<ul class="flex gap-2 flex-wrap max-w-[200px] lg:flex-nowrap">

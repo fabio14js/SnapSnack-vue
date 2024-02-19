@@ -6,7 +6,6 @@ import { useStorage } from "@vueuse/core";
 import { useRouter } from "vue-router";
 import InfoRestaurant from "./InfoRestaurant.vue";
 
-
 const restaurant = ref([]);
 const dishes = ref([]);
 const input = ref("");
@@ -15,6 +14,8 @@ const isModalOpen = ref(false);
 const router = useRouter();
 
 const { slug } = defineProps(["slug"]);
+
+const tempDish = ref();
 
 axios.get(`${store.apiUrl}/restaurant/${slug}`).then((res) => {
 	restaurant.value = res.data.restaurant;
@@ -38,7 +39,6 @@ const filteredDishes = computed(() => {
 
 const isShowingMenu = ref(true);
 const isShowingCart = ref(true);
-
 
 const toggleCartMenu = () => {
 	isShowingCart.value = !isShowingCart.value;
@@ -73,6 +73,7 @@ const addToCartHandler = (dish) => {
 			isModalOpen.value = true;
 			document.documentElement.style.overflow = "hidden";
 			valid = false;
+			tempDish.value = dish;
 		}
 	});
 	if (valid) {
@@ -92,14 +93,11 @@ const removeFromCartHandler = (dish) => {
 	const existingDish = cart.value.find((cartDish) => cartDish.id === dish.id);
 	if (existingDish) {
 		if (existingDish.counter > 1) {
-			existingDish.counter--;            
+			existingDish.counter--;
 		} else {
-            removeDish(dish);
-            
+			removeDish(dish);
 		}
 	}
-    
-    
 };
 
 const removeDish = (dish) => {
@@ -118,6 +116,7 @@ const modalHandleClick = (resp) => {
 		cart.value = [];
 		isModalOpen.value = false;
 		document.documentElement.style.overflow = "scroll";
+		addToCartHandler(tempDish.value);
 	} else if (resp === "no") {
 		cart.value.forEach((item) => {
 			if (item.restaurant_id !== restaurant.value.id) {
@@ -148,15 +147,13 @@ onMounted(() => {
 	scrollTop();
 });
 
-function handlePayment() {    
-    if (cart.value.length > 0) {
-        router.push({
-            name: "payment",
-            
-        });
-    }
-
-    }
+function handlePayment() {
+	if (cart.value.length > 0) {
+		router.push({
+			name: "payment",
+		});
+	}
+}
 </script>
 
 <template>
@@ -191,7 +188,7 @@ function handlePayment() {
 							{{ restaurant.address }}
 						</p>
 					</div>
-					
+
 					<div class="px-6 pt-4 pb-2">
 						<span
 							v-for="category in restaurant.categories"
@@ -201,15 +198,19 @@ function handlePayment() {
 					</div>
 				</div>
 				<!-- Cart -->
-				<div 
-                    v-if="isShowingMenu"
+				<div
+					v-if="isShowingMenu"
 					class="fixed top-[200px] right-[20px] bg-white rounded-md p-3 shadow-lg border-2 cursor-pointer"
 					@click="toggleCartMenu"
 					v-show="isShowingCart">
 					<font-awesome-icon
 						class="text-3xl"
 						icon="fa-solid fa-cart-shopping" />
-					<span v-show="cartCounter > 0" class="absolute flex justify-center items-center top-[-16px] right-[-16px] p-[12px] w-[20px] h-[20px] bg-white rounded-full border-2 text-xs font-semibold text-red-500">{{ cartCounter }}</span>
+					<span
+						v-show="cartCounter > 0"
+						class="absolute flex justify-center items-center top-[-16px] right-[-16px] p-[12px] w-[20px] h-[20px] bg-white rounded-full border-2 text-xs font-semibold text-red-500"
+						>{{ cartCounter }}</span
+					>
 				</div>
 				<div
 					class="fixed overflow-hidden w-[100%] md:w-[55%] lg:w-[45%] transition-all duration-200 top-0 right-0 bg-black opacity-75 text-white md:rounded-l-md lg:shadow-md p-[15px] sm:p-2 md:px-[70px] py-10 md:py-[20px] h-full z-10 flex flex-col justify-between"
@@ -290,7 +291,8 @@ function handlePayment() {
 					v-for="dish in filteredDishes"
 					:key="dish.id"
 					class="w-full mb-8 bg-white hover:scale-[1.02] transition-all duration-300">
-					<div class="flex sm:justify-between flex-col gap-3 sm:flex-row items-center text-center sm:text-left border rounded-md p-3 md:p-6 hover:shadow-lg cursor-pointer transition-all duration-300">
+					<div
+						class="flex sm:justify-between flex-col gap-3 sm:flex-row items-center text-center sm:text-left border rounded-md p-3 md:p-6 hover:shadow-lg cursor-pointer transition-all duration-300">
 						<div>
 							<p class="sm:text-xl text-lg">{{ dish.name }}</p>
 							<span class="text-lg font-bold">{{ dish.price }} &euro;</span>
@@ -317,9 +319,8 @@ function handlePayment() {
 				</div>
 
 				<div v-show="!isShowingMenu">
-                    <InfoRestaurant :restaurant="restaurant"/>
-                    
-                </div>
+					<InfoRestaurant :restaurant="restaurant" />
+				</div>
 			</div>
 		</div>
 	</section>
