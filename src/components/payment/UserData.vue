@@ -123,7 +123,7 @@ function validateEmit() {
               autocomplete="given-name"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 sm:text-sm sm:leading-6"
             />
-            <span v-if="formDataErr.firstName">Inserisci un nome valido.</span>
+            <span class="text-red-500" v-if="formDataErr.firstName">Inserisci un nome valido.</span>
           </div>
         </div>
 
@@ -143,7 +143,7 @@ function validateEmit() {
               autocomplete="family-name"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 sm:text-sm sm:leading-6"
             />
-            <span v-if="formDataErr.lastName"
+            <span class="text-red-500" v-if="formDataErr.lastName"
               >Inserisci un cognome valido.</span
             >
           </div>
@@ -165,7 +165,7 @@ function validateEmit() {
               autocomplete="email"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 sm:text-sm sm:leading-6"
             />
-            <span v-if="formDataErr.email">Inserisci un'email valida.</span>
+            <span class="text-red-500" v-if="formDataErr.email">Inserisci un'email valida.</span>
           </div>
         </div>
 
@@ -185,7 +185,7 @@ function validateEmit() {
               autocomplete="street-address"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 sm:text-sm sm:leading-6"
             />
-            <span v-if="formDataErr.address"
+            <span class="text-red-500" v-if="formDataErr.address"
               >Inserisci un indirizzo valido</span
             >
           </div>
@@ -207,7 +207,7 @@ function validateEmit() {
               autocomplete="phone-number"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 sm:text-sm sm:leading-6"
             />
-            <span v-if="formDataErr.phoneNumber"
+            <span class="text-red-500" v-if="formDataErr.phoneNumber"
               >Inserisci un numero valido</span
             >
           </div>

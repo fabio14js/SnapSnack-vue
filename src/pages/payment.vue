@@ -45,7 +45,7 @@ async function handlePaymentSubmit() {
 		router.push({
 			name: "home",
 		});
-	}, 5000);
+	}, 10000);
 
 
 
