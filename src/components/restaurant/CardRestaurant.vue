@@ -180,7 +180,7 @@ function handlePayment() {
 		<div class="container mx-auto transition-all duration-200 px-12 relative">
 			<div class="flex flex-col justify-center items-center py-4">
 				<div
-					:style="{ backgroundImage: `url(${restaurant.photo})` }"
+					:style="{ backgroundImage: `url(${restaurant.is_default === 0 ? 'http://127.0.0.1:8000/storage/' + restaurant.photo : restaurant.photo})` }"
 					class="bg-no-repeat bg-cover transition-all duration-200 2xl-[1200px] lg:w-[1000px] md:w-[800px] sm:w-[600px] w-[400px] rounded shadow-lg flex justify-center items-center flex-col border p-6 mb-10">
 					<div class="px-6 py-4 text-center bg-[#F5DEB3]/[.73] rounded-md shadow-lg">
 						<h1 class="font-bold text-6xl mb-2">{{ restaurant.name }}</h1>
