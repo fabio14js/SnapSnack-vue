@@ -12,9 +12,9 @@ function scrollTop() {
 	window.scrollTo(0, 0);
 }
 
-onMounted(()=>{
+onMounted(() => {
 	scrollTop();
-})
+});
 
 const router = useRouter();
 
@@ -40,38 +40,38 @@ async function handlePaymentSubmit() {
 	controller.value.payment = true;
 	currentPage.value = "isCompleted";
 
-	
 	setTimeout(() => {
 		router.push({
 			name: "home",
 		});
 	}, 10000);
 
-
-
 	// console.log(cart.value);
 	// console.log(userData.value);
 
-
 	const headers = {
-		'Content-Type': 'application/json',
-	}
+		"Content-Type": "application/json",
+	};
 
 	await axios
-		.post(`${store.apiUrl}/order`,  {
-			chest: cart.value,
-			user: userData.value,
-		}, {headers: headers})
+		.post(
+			`${store.apiUrl}/order`,
+			{
+				chest: cart.value,
+				user: userData.value,
+			},
+			{ headers: headers }
+		)
 		.then((resp) => {
 			console.log(resp);
-		}
-		).catch((error)=> {
+		})
+		.catch((error) => {
 			console.log(error);
 		});
 
-	// SVUOTO IL CARRELLO DOPO AVER MANDATO I DATI AL DB 
+	// SVUOTO IL CARRELLO DOPO AVER MANDATO I DATI AL DB
 
-	cart.value = []
+	cart.value = [];
 }
 
 const isCompleted = computed(() => {
@@ -80,20 +80,32 @@ const isCompleted = computed(() => {
 </script>
 
 <template>
-	<div class="container mx-auto transition-all duration-200 px-12 my-10 relative text-center">
-		<div class="bg-[#f5deb398] drop-shadow-md grid grid-cols-3 w-full font-bold">
-			<div :class="currentPage === 'userData' ? 'bg-[wheat]' : ''" class="flex justify-center items-center py-6 px-4">
-				Dati Personali
-			</div>
-			<div :class="currentPage === 'payment' ? 'bg-[wheat]' : ''" class="flex justify-center items-center py-6 px-4">
-				Dati Pagamento
-			</div>
-			<div :class="isCompleted ? 'bg-[wheat]' : ''" class="flex justify-center items-center py-6 px-4">
-				Stato Ordine
+	<div class="my-20">
+		<div class="container mx-auto transition-all duration-200 px-12 my-10 relative text-center">
+			<div class="bg-[#f5deb398] drop-shadow-md grid grid-cols-3 w-full font-bold">
+				<div
+					:class="currentPage === 'userData' ? 'bg-[wheat]' : ''"
+					class="flex justify-center items-center py-6 px-4">
+					Dati Personali
+				</div>
+				<div
+					:class="currentPage === 'payment' ? 'bg-[wheat]' : ''"
+					class="flex justify-center items-center py-6 px-4">
+					Dati Pagamento
+				</div>
+				<div
+					:class="isCompleted ? 'bg-[wheat]' : ''"
+					class="flex justify-center items-center py-6 px-4">
+					Stato Ordine
+				</div>
 			</div>
 		</div>
+		<UserData
+			v-if="!controller.userData"
+			@customUserDataSubmit="handleUserDataSubmit" />
+		<PaymentData
+			v-if="controller.userData && !isCompleted"
+			@customPaymentSubmit="handlePaymentSubmit" />
+		<Complete v-if="isCompleted" />
 	</div>
-	<UserData v-if="!controller.userData" @customUserDataSubmit="handleUserDataSubmit" />
-	<PaymentData v-if="controller.userData && !isCompleted" @customPaymentSubmit="handlePaymentSubmit" />
-	<Complete v-if="isCompleted" />
 </template>
