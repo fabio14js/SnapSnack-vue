@@ -100,7 +100,7 @@ function validateEmit() {
 </script>
 
 <template>
-  <div class="container mx-auto transition-all duration-200 px-12 relative">
+  <div class="container mx-auto transition-all duration-200 px-12 relative py-[2.65rem]">
     <div class="border-b border-gray-900/10 pb-12">
       <h2 class="text-base font-semibold leading-7 text-gray-900">
         Inserisci i tuoi dati

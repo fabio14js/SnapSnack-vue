@@ -128,7 +128,7 @@ const companyInformation = [
         </ul>
         <ul class="flex flex-col gap-2 bg-white rounded-md p-8 drop-shadow-xl">
           <li class="mb-2">
-            <h2 class="text-[#FFA500] text-2xl font-bold">About Us</h2>
+            <h2 class="text-[#FFA500] text-2xl font-bold">Chi Siamo</h2>
           </li>
           <li v-for="information in companyInformation">
             <a class="hover:text-[#FFA500] transition-colors duration-200" href="">{{ information.name }}</a>

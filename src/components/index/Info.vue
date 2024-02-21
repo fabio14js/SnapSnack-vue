@@ -3,14 +3,14 @@ import { ref } from "vue";
 
 const cards = ref([
   {
-    title: "Partner with us",
+    title: "Diventa Nostro Partner",
     image: "/plates.jpg",
-    paragraph: "Join SnapSnak and reach more customers than ever. We handle delivery, so you can focus on the food.",
+    paragraph: "Unisciti a SnapSnak e raggiungi più clienti che mai. Noi ci occupiamo della consegna, così tu puoi concentrarti sul cibo.",
   },
   {
-    title: "Ride with us",
+    title: "Diventa un Rider",
     image: "/rider.jpg",
-    paragraph: "The freedom to fit work around your life. Plus great fees, perks and discounts.",
+    paragraph: "La libertà di adattare il lavoro alla tua vita. Inoltre, ottimi compensi, vantaggi e sconti.",
   },
 ]);
 </script>
@@ -25,7 +25,7 @@ const cards = ref([
           <li class="max-w-[400px] text-sm md:text-base drop-shadow-md">{{ card.paragraph }}</li>
           <a
             class="bg-white mt-1 hover:scale-105 transition-transform duration-200 text-sm md:text-base flex items-center gap-2 drop-shadow-lg self-start rounded-md text-black py-2 px-3"
-            >Get started
+            >Scopri di più
             <font-awesome-icon class="text-[#ffa90c]" :icon="['fas', 'arrow-right']" />
           </a>
         </ul>
