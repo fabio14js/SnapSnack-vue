@@ -9,3 +9,7 @@
 </ul>
 
 <img src="https://i.imgur.com/ASaLpY8.png">
+<img src="https://i.imgur.com/vnqaCiq.png">
+<img src="https://i.imgur.com/vnqaCiq.png">
+<img src="https://i.imgur.com/FUKNItn.png">
+<img src="https://i.imgur.com/d1LccNy.png">
