@@ -8,4 +8,4 @@
 <li>Css + Tailwind </li>
 </ul>
 
-<img src="home.jpg" width="600" height="400">
+<img src="/home.jpg" width="600" height="400">
