@@ -1,5 +1,5 @@
 <h1> SnapSnack </h1>
-<h2> Applicativo FrontEnd Demo di una Completa Food Delivery Application </h2>
+<h2> Applicativo FrontEnd: Demo di una Completa Food Delivery Application Responsive da qualsiasi dispositivo</h2>
 
 <h4>Tecnologie Utilizzate: </h4>
 <ul>
@@ -8,4 +8,7 @@
 <li>Css + Tailwind </li>
 </ul>
 
-<img src="home.jpg" width="600" height="400">
+<img src="https://i.imgur.com/ASaLpY8.png">
+<img src="https://i.imgur.com/FUKNItn.png">
+<img src="https://i.imgur.com/d1LccNy.png">
+<img src="https://i.imgur.com/y798pVU.png">
